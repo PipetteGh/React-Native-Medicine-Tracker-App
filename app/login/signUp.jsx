@@ -4,7 +4,7 @@ import { TextInput } from 'react-native'
 import Colors from '../../constant/Colors'
 import { useRouter } from 'expo-router'
 
-export default function SignIn() {
+export default function SignUp() {
   const router = useRouter();
   return (
     <View style={{
