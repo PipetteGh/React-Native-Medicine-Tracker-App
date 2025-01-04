@@ -47,6 +47,3 @@ A **React Native Medicine Tracker App** that helps users efficiently manage thei
 - **Firebase Project** (with Firestore, Authentication, and FCM enabled)
 - **Android Studio** or **Xcode** (for emulator testing)
 
-### Steps
-
-1. **Clo
