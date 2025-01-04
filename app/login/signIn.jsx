@@ -29,7 +29,7 @@ export default function SignIn() {
       }} >
           <Text style={{fontSize: 17}}>Password</Text>
           <TextInput style={styles.textInput} placeholder='Password' 
-          secureTextEntry
+          secureTextEntry={true}
           />
       </View>
       {/* Login input fields ends here */}
@@ -41,7 +41,7 @@ export default function SignIn() {
           fontSize: 20,
           color: 'white',
           fontWeight: 'bold'
-        }}>Signin Now</Text>
+        }}>Sign in Now</Text>
         </TouchableOpacity>
 
         {/* Create New Account Button */}
@@ -59,11 +59,6 @@ export default function SignIn() {
         }}>Create New Account</Text>
         </TouchableOpacity>
 
-        <Text style={{
-          textAlign: 'center',
-          color: 'red',
-          fontSize: 17
-        }}>If not a member? </Text>
       {/* Sign button ends here */}
        
     </View>
