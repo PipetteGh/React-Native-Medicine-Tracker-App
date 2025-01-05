@@ -1,9 +1,36 @@
 import { View, Text } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
+import React, { useEffect, useState } from 'react'
+import { Tabs, useRouter } from 'expo-router'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../config/FirebaseConfig';
 
 export default function TabLayout() {
+    const router = useRouter();
+    const [authenticated,setAuthenticated] = useState(null);
+    // check if user is sign in else signout or redirect to the login page
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/auth.user
+            const uid = user.uid;
+            console.log(uid);
+            setAuthenticated(true);
+            // ...
+        } else {
+            // User is signed out
+            // ...
+            setAuthenticated(false);
+        }
+    });
+
+    // user is signout if no login detected
+    useEffect(()=>{
+        if(authenticated==false){
+            router.push('login/signIn'); 
+        }
+    },[authenticated])
+ 
   return (
     <Tabs screenOptions={{headerShown:false}} >
         <Tabs.Screen name='index' 
