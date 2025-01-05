@@ -41,7 +41,7 @@ A **React Native Medicine Tracker App** that helps users efficiently manage thei
 
 ### Prerequisites
 
-- **Node.js** (v16 or later)
+- **Node.js** (v15 or later)
 - **npm** or **yarn**
 - **Expo CLI** (`npm install -g expo-cli`)
 - **Firebase Project** (with Firestore, Authentication, and FCM enabled)
