@@ -1,12 +1,64 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid, Alert } from 'react-native'
+import React, { useState } from 'react'
 import { TextInput } from 'react-native'
 import Colors from '../../constant/Colors'
 import { useRouter } from 'expo-router'
+import {auth} from '../../config/FirebaseConfig'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+
 
 export default function SignUp() {
     const router = useRouter();
+    const [email,setEmail] = useState();
+    const [password,setPassword] = useState();
+    const [fullname,setFullName] = useState();
+
+    // Function to handle creating of new account
+    const OnCreateAccount = ()=>{
+        // check empty fields or errors
+        if (!email || !password) {
+            Alert.alert("Please enter email & password");
+            return;
+          }
+          
+          // Validate email format using a regular expression
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            Alert.alert("Please enter a valid email address");
+            return;
+          }
+          
+          // Check password length
+          if (password.length < 6) {
+            Alert.alert("Password must be at least 6 characters long");
+            return;
+          }
+          
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                console.log(user);
+                router.push('(tabs)')
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                if(errorCode=='auth/email-already-in-use'){
+                    ToastAndroid.show("Acount with "+email+" already exist",ToastAndroid.CENTER);
+                    Alert.alert("Acount with "+email+" already exist");
+
+                }
+                // ..
+            });
+
+    }
+    // end of create function 
+
     return (
+        
         <View style={{
             padding: 20
         }}>
@@ -20,7 +72,9 @@ export default function SignUp() {
                 marginTop: 5
             }} >
                 <Text style={{ fontSize: 17, marginTop: 2 }}>Full Name</Text>
-                <TextInput style={styles.textInput} placeholder='Enter Full Name' />
+                <TextInput style={styles.textInput} placeholder='Enter Full Name'
+                // onChangeText={(value)=>setFullName(value)}
+                />
             </View>
 
             <View style={{
@@ -28,7 +82,9 @@ export default function SignUp() {
                 marginTop: 5
             }} >
                 <Text style={{ fontSize: 17, marginTop: 2 }}>Email</Text>
-                <TextInput style={styles.textInput} placeholder='Enter Your Email' />
+                <TextInput style={styles.textInput} placeholder='Enter Your Email' 
+                onChangeText={(value)=>setEmail(value)}
+                />
             </View>
 
             <View style={{
@@ -37,13 +93,16 @@ export default function SignUp() {
             }} >
                 <Text style={{ fontSize: 17 }}>Password</Text>
                 <TextInput style={styles.textInput} placeholder='Enter Password'
-                    secureTextEntry
+                    secureTextEntry={true}
+                    onChangeText={(value)=>setPassword(value)}
                 />
             </View>
             {/* Login input fields ends here */}
 
             {/* Clickable or button for Signin */}
-            <TouchableOpacity style={styles?.button}>
+            <TouchableOpacity style={styles?.button}
+                onPress={OnCreateAccount}
+            >
                 <Text style={{
                     textAlign: 'center',
                     fontSize: 20,

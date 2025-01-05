@@ -1,11 +1,54 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import React, { useState } from 'react'
 import { TextInput } from 'react-native'
 import Colors from '../../constant/Colors'
 import { useRouter } from 'expo-router'
+import {auth} from '../../config/FirebaseConfig'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default function SignIn() {
   const router = useRouter();
+  const [email,setEmail] = useState();
+  const [password,setPassword] = useState();
+
+  // function to handle signin click
+  const onSignInClick = ()=> {
+      if (!email || !password) {
+        Alert.alert("Please enter email & password");
+        return;
+      }
+
+      // Validate email format using a regular expression
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        Alert.alert("Please enter a valid email address");
+        return;
+      }
+
+      // Check password length
+      if (password.length < 6) {
+        Alert.alert("Password must be at least 6 characters long");
+        return;
+      }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+        router.replace('(tabs)');
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        if(errorCode == "auth/invalid-credential"){
+          console.log(errorCode);
+          Alert.alert('Ooops, invalid email or password, please try again');
+        }
+      });
+  }
+
   return (
     <View style={{
       padding: 20
@@ -20,7 +63,9 @@ export default function SignIn() {
         marginTop: 10
       }} >
           <Text style={{fontSize: 17, marginTop:2}}>Email</Text>
-          <TextInput style={styles.textInput} placeholder='Email' />
+          <TextInput style={styles.textInput} placeholder='Enter Email' 
+          onChangeText={(value)=>setEmail(value)}
+          />
       </View>
       
       <View style={{
@@ -28,14 +73,17 @@ export default function SignIn() {
         marginTop: 10
       }} >
           <Text style={{fontSize: 17}}>Password</Text>
-          <TextInput style={styles.textInput} placeholder='Password' 
+          <TextInput style={styles.textInput} placeholder='Enter Password' 
           secureTextEntry={true}
+          onChangeText={(value)=>setPassword(value)}
           />
       </View>
       {/* Login input fields ends here */}
 
       {/* Clickable or button for Signin */}
-        <TouchableOpacity style={styles?.button}>
+        <TouchableOpacity style={styles?.button}
+        onPress={onSignInClick}
+        >
         <Text style={{
           textAlign: 'center',
           fontSize: 20,
