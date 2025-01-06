@@ -13,7 +13,7 @@ export default function LoginScreen() {
             marginTop: 20
         }}  >
             
-            <Image source={require('../../assets/images/login.png')} 
+            <Image source={require('../../assets/images/book.png')} 
             style={styles?.Image}
             />
         </View>

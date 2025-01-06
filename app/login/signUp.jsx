@@ -53,6 +53,7 @@ export default function SignUp() {
                 // locally store user details on the device
                 await setLocalStorage('userDetail', JSON.stringify(user));
                 setLoading(false); // Hide loading spinner
+                console.log(JSON.stringify(user));
                 router.push('(tabs)');
             })
             .catch((error) => {

@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router'
 import { auth } from '../../config/FirebaseConfig'
 import { signOut } from 'firebase/auth'
 import { clearLocalStorage } from '../../service/Storage'
+import Header from '../../components/Header'
 
 export default function HomeScreen() {
     const router = useRouter();
@@ -25,9 +26,17 @@ export default function HomeScreen() {
     };
 
     return (
-        <View>
-            <Text>HomeScreen</Text>
+        <View style={{
+            padding: 25,
+            backgroundColor: 'white',
+            height: '100%'
+        }} >
+            
             <Button title="Log Out" onPress={handleSignOut} />
+
+            {/* add header of the dashboard */}
+
+            <Header />
         </View>
     );
 }
