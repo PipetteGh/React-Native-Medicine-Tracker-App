@@ -20,7 +20,12 @@ export default function Header() {
 
   return (
     <View>
-      <View>
+      <View style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10
+      }}>
         <Image 
           source={require('./../assets/images/smiley.png')} 
           style={{
@@ -28,7 +33,12 @@ export default function Header() {
             height: 45,
           }} 
         />
-        <Text>
+        <Text
+         style={{
+          fontSize: 30,
+          fontWeight: 'bold'
+         }}
+        >
           Hello {user?.displayName || 'Guest'} {/* Handle missing displayName */}
         </Text>
       </View>
