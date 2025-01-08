@@ -5,25 +5,26 @@ import { auth } from '../../config/FirebaseConfig'
 import { signOut } from 'firebase/auth'
 import { clearLocalStorage } from '../../service/Storage'
 import Header from '../../components/Header'
+import EmptyState from '../../components/EmptyState'
 
 export default function HomeScreen() {
     const router = useRouter();
 
-    const handleSignOut = async () => {
-        try {
-            // Clear all locally stored user details
-            await clearLocalStorage();
+    // const handleSignOut = async () => {
+    //     try {
+    //         // Clear all locally stored user details
+    //         await clearLocalStorage();
 
-            // Sign out the user
-            await signOut(auth);
+    //         // Sign out the user
+    //         await signOut(auth);
 
-            // Redirect to login screen
-            router.replace('/login');
-        } catch (error) {
-            Alert.alert("Error", "An error occurred while logging out. Please try again.");
-            console.error(error);
-        }
-    };
+    //         // Redirect to login screen
+    //         router.replace('/login');
+    //     } catch (error) {
+    //         Alert.alert("Error", "An error occurred while logging out. Please try again.");
+    //         console.error(error);
+    //     }
+    // };
 
     return (
         <View style={{
@@ -32,11 +33,12 @@ export default function HomeScreen() {
             height: '100%'
         }} >
             
-            <Button title="Log Out" onPress={handleSignOut} />
+            {/* <Button title="Log Out" onPress={handleSignOut} /> */}
 
             {/* add header of the dashboard */}
 
             <Header />
+            <EmptyState />
         </View>
     );
 }
