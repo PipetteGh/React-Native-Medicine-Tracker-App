@@ -13,7 +13,7 @@ export default function LoginScreen() {
             marginTop: 20
         }}  >
             
-            <Image source={require('../../assets/images/login.png')} 
+            <Image source={require('../../assets/images/event.png')} 
             style={styles?.Image}
             />
         </View>
@@ -22,14 +22,14 @@ export default function LoginScreen() {
             padding:25,
             backgroundColor:Colors.PRIMARY,
             height: '100%',
-            borderRadius:30
+            borderRadius:90
         }} >
             <Text style={{
                 fontSize: 30,
                 fontWeight: 'bold',
                 color: 'white',
                 textAlign: 'center'
-            }} >Stay on Track, Stay Healthy!</Text>
+            }} >Plan your events, secure your reservations!</Text>
 
             {/* small text of description */}
             <Text style={{
@@ -38,7 +38,7 @@ export default function LoginScreen() {
                 textAlign: 'center',
                 fontSize: 17
 
-            }} >Track your medicine, take control of your health. Stay consistent, stay confident</Text>
+            }} >Plan your events, secure your reservations. Stay organized, stay ahead.</Text>
         
         {/* Login Button */}
         <TouchableOpacity style={styles?.button} 

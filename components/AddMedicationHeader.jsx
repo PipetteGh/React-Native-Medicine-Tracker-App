@@ -6,7 +6,7 @@ export default function AddMedicationHeader() {
   return (
     <View>
       <Image source={require('../assets/images/consult.png')} style={{
-        height: 300,
+        height: 200,
         width: '100%'
       }} />
 
